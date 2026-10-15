@@ -15,6 +15,7 @@ function renderMute() {
 function toggleMute() {
   state.muted = !state.muted;
   save(); renderMute();
+  window.dispatchEvent(new Event('mutechange')); // 라디오처럼 소리를 내는 다른 기능도 따라가게
 }
 
 function setRoomInUrl(room) {

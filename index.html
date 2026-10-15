@@ -10,6 +10,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png" />
 <link rel="stylesheet" href="style.css" />
 <link rel="stylesheet" href="rituals.css" />
+<link rel="stylesheet" href="visitors.css" />
 </head>
 <body>
 
@@ -34,6 +35,16 @@
 
 <div id="sky"></div>
 <button id="btn-mute" class="icon-btn">🔔</button>
+<button id="btn-radio" class="icon-btn left" aria-label="법당 라디오">📻</button>
+<!-- 연등은 data-obstacle 영역을 피해서 뜬다 -->
+<section id="radio" class="radio-card" hidden data-obstacle>
+  <div class="radio-head">
+    <span>📻 법당 라디오 · 반야심경</span>
+    <button id="radio-close" aria-label="라디오 닫기">✕</button>
+  </div>
+  <div id="radio-slot"></div>
+  <p class="radio-credit">BBS 불교방송 · 영인스님 독경</p>
+</section>
 
 <main id="hall">
   <section id="altar">
@@ -161,7 +172,7 @@
   </div>
 </div>
 
-<div id="cat" hidden aria-label="법당 고양이">
+<div id="cat" class="visitor" hidden aria-label="법당 고양이">
   <svg viewBox="0 0 84 60">
     <defs>
       <radialGradient id="beadG" cx="0.35" cy="0.3" r="0.75">
@@ -199,6 +210,28 @@
       <circle cx="62.7" cy="42.4" r="2.9"/>
       <path class="tassel" d="M61.7 44.9 l-1 5 M62.7 45.2 l0.3 5.5 M63.7 44.9 l1.5 4.8" stroke="#d8323f" stroke-width="1.8" stroke-linecap="round"/>
     </g>
+  </svg>
+</div>
+
+<div id="dog" class="visitor" hidden aria-label="절 강아지">
+  <svg viewBox="0 0 92 64">
+    <!-- 진돗개처럼 말린 꼬리 -->
+    <path class="tail" d="M20 31 C9 28 7 13 17 12 C25 11 25 21 18 21" stroke="#f4ead8" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <g class="legs back"><rect x="20" y="40" width="6" height="17" rx="3"/><rect x="29" y="40" width="6" height="17" rx="3"/></g>
+    <g class="legs front"><rect x="47" y="40" width="6" height="17" rx="3"/><rect x="56" y="40" width="6" height="17" rx="3"/></g>
+    <ellipse cx="40" cy="36" rx="25" ry="12" fill="#f4ead8"/>
+    <polygon points="58,17 59,3 67,13" fill="#f4ead8"/>
+    <polygon points="60,14 61,7 65,13" fill="#e8b8a8"/>
+    <polygon points="66,13 73,3 74,17" fill="#f4ead8"/>
+    <circle cx="67" cy="24" r="11.5" fill="#f4ead8"/>
+    <ellipse cx="78" cy="28" rx="9" ry="6" fill="#f4ead8"/>
+    <circle cx="86" cy="26.5" r="2.3" fill="#2a1a0c"/>
+    <path d="M79 31.5 q3 2 6 0" stroke="#8a7a66" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <ellipse class="tongue" cx="82" cy="34" rx="2.2" ry="3" fill="#e7808a"/>
+    <circle class="eye" cx="70" cy="21" r="1.7" fill="#2a1a0c"/>
+    <!-- 가사 색 두건 -->
+    <path d="M56 26 Q63 31 71 32 L64 44 Z" fill="#b5651d"/>
+    <path d="M56 26 Q63 31 71 32" stroke="#8a4a14" stroke-width="2" fill="none" stroke-linecap="round"/>
   </svg>
 </div>
 

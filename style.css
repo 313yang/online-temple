@@ -79,6 +79,7 @@ button { font-family: inherit; color: inherit; cursor: pointer; }
 .lantern .tag .wish { overflow: hidden; text-overflow: ellipsis; }
 .lantern .tag .who { font-size: 10px; color: var(--ink-dim); margin-top: 1px; }
 .lantern.mine .tag { color: #fff3cf; border: 1px solid rgba(232,184,90,0.45); }
+.lantern.quiet .tag { opacity: 0; }
 .lantern.gone { opacity: 0; transition: opacity 2s ease; }
 .lantern:hover { z-index: 5; }
 .lantern:hover .tag, .lantern.fresh .tag {

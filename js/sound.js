@@ -122,3 +122,47 @@ export function playPurr(seconds = 2.4) {
   n.connect(hp).connect(lp).connect(g).connect(ac.destination);
   n.start(t + 0.2);
 }
+
+// ---------- 강아지 ----------
+const BARK_GAP_S = 0.2;
+
+// '왕' 한 번: 톱니파의 음높이를 확 올렸다 내리고, 숨소리 섞인 잡음을 살짝 얹는다
+function bark(ac, t) {
+  const o = ac.createOscillator(), bp = ac.createBiquadFilter(), g = ac.createGain();
+  o.type = 'sawtooth';
+  o.frequency.setValueAtTime(520, t);
+  o.frequency.linearRampToValueAtTime(760, t + 0.03);
+  o.frequency.exponentialRampToValueAtTime(380, t + 0.13);
+  bp.type = 'bandpass'; bp.frequency.value = 1150; bp.Q.value = 1.2;
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(0.16, t + 0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.14);
+  o.connect(bp).connect(g).connect(ac.destination);
+  o.start(t); o.stop(t + 0.16);
+
+  const n = ac.createBufferSource(), nbp = ac.createBiquadFilter(), ng = ac.createGain();
+  n.buffer = noiseBuffer(ac, 0.08, (p) => (1 - p) ** 2);
+  nbp.type = 'bandpass'; nbp.frequency.value = 1800; nbp.Q.value = 0.8; ng.gain.value = 0.12;
+  n.connect(nbp).connect(ng).connect(ac.destination);
+  n.start(t);
+}
+
+// '헥헥': 짧은 숨소리 잡음을 일정한 간격으로
+function pant(ac, t, times = 4) {
+  for (let i = 0; i < times; i++) {
+    const n = ac.createBufferSource(), bp = ac.createBiquadFilter(), g = ac.createGain();
+    n.buffer = noiseBuffer(ac, 0.11, (p) => Math.sin(Math.PI * p));
+    bp.type = 'bandpass'; bp.frequency.value = i % 2 ? 1500 : 2100; bp.Q.value = 1.5;
+    g.gain.value = 0.09;
+    n.connect(bp).connect(g).connect(ac.destination);
+    n.start(t + i * 0.19);
+  }
+}
+
+export function playBark() {
+  if (state.muted) return;
+  const ac = audio(), t = ac.currentTime;
+  bark(ac, t);
+  bark(ac, t + BARK_GAP_S);
+  pant(ac, t + 0.6);
+}

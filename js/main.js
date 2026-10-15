@@ -1,5 +1,6 @@
 import { initBurn } from './burn.js';
 import { initCat } from './cat.js';
+import { initDog } from './dog.js';
 import { PUBLIC_ROOM } from './config.js';
 import { connectFortune, fortunePeer, initFortune } from './fortune.js';
 import { openGate } from './gate.js';
@@ -8,6 +9,7 @@ import { drawStars } from './lantern-view.js';
 import { connectLanterns, initLanterns, lanternPeer } from './lanterns.js';
 import { initMoktak } from './moktak.js';
 import { joinHall } from './p2p.js';
+import { initRadio } from './radio.js';
 import { playChime, unlockAudio } from './sound.js';
 import { $ } from './ui.js';
 
@@ -42,10 +44,12 @@ initMoktak();
 initIncense();
 initBurn();
 initFortune();
+initRadio();
 
 const { room } = await openGate();
 unlockAudio();
 playChime();
 initLanterns(room);
 initCat();
+initDog();
 connect(room);

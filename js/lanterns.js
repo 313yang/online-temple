@@ -2,7 +2,7 @@
 import {
   DEFAULT_NAME, LANTERN_COLORS, LANTERN_TTL_MS, MAX_LANTERNS_PER_PEER, MAX_NAME_LEN, MAX_WISH_LEN,
 } from './config.js';
-import { applyBow, lanternInfo, lanternSpot, removeOwnerLanterns, showLantern } from './lantern-view.js';
+import { applyBow, lanternInfo, removeOwnerLanterns, showLantern } from './lantern-view.js';
 import { playChime } from './sound.js';
 import { save, state } from './store.js';
 import { $, bindModal, clsx, floatEmoji, toast } from './ui.js';
@@ -14,7 +14,7 @@ const alive = (l) => Date.now() - l.at < LANTERN_TTL_MS;
 const myLanterns = () => state.lanterns.filter((l) => l.room === room && alive(l));
 
 const forWire = (l) => ({
-  id: l.id, text: l.text, color: l.color, x: l.x, y: l.y, name: l.name, bows: l.bows || 0,
+  id: l.id, text: l.text, color: l.color, name: l.name, bows: l.bows || 0,
   remainMs: l.at + LANTERN_TTL_MS - Date.now(),
 });
 
@@ -27,7 +27,6 @@ function sanitize(raw) {
     text: raw.text.trim().slice(0, MAX_WISH_LEN),
     name: String(raw.name || DEFAULT_NAME).slice(0, MAX_NAME_LEN),
     color: raw.color,
-    x: num(raw.x, 0, 95), y: num(raw.y, 0, 80),
     bows: num(raw.bows, 0, 9999),
     remainMs: num(raw.remainMs, 0, LANTERN_TTL_MS),
   };
@@ -49,7 +48,7 @@ const showMine = (l, fresh) => showLantern(l, {
 
 function lightLantern(text, color) {
   if (myLanterns().length >= MAX_LANTERNS_PER_PEER) return toast(`연등은 한 번에 ${MAX_LANTERNS_PER_PEER}개까지 밝힐 수 있어요`);
-  const l = { id: Math.random().toString(36).slice(2, 12), text, color, name: myName(), room, bows: 0, ...lanternSpot(), at: Date.now() };
+  const l = { id: Math.random().toString(36).slice(2, 12), text, color, name: myName(), room, bows: 0, at: Date.now() };
   state.lanterns.push(l);
   save(); showMine(l, true); renderSub();
   hall?.send('lanterns', [forWire(l)]);

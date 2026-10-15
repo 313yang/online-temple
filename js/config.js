@@ -23,6 +23,10 @@ export const MAX_ROOM_LEN = 20;
 export const DEFAULT_NAME = '익명의 불자';
 export const ROOM_PARAM = 'room';
 
+// 법당 라디오: BBS 불교방송 「독경_반야심경 (영인스님)」
+export const YT_VIDEO_ID = 'bTizqvC5X9o';
+export const YT_ORIGIN = 'https://www.youtube-nocookie.com'; // 쿠키를 덜 남기는 유튜브 공식 임베드 주소
+
 // P2P
 export const TRYSTERO_URL = 'https://cdn.jsdelivr.net/npm/trystero@0.25.4/+esm';
 export const P2P_APP_ID = 'beopdang-online-v1';
