@@ -2,11 +2,20 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0J47KY7ZRC"></script>
 <script>
-  // 방 이름(?room=)은 같은 방 사람끼리만 만나는 열쇠라서 분석 도구로 보내지 않는다.
-  // GTM의 GA4 태그에서 page_location 을 이 값으로 덮어쓰도록 설정해 둔다.
   window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({ page_location_clean: location.origin + location.pathname });
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  // 방 이름(?room=)은 같은 방 사람끼리만 만나는 열쇠라서 분석 도구로 보내지 않는다.
+  // 지금 주소뿐 아니라 이전 주소(새로고침하면 방 이름이 그대로 담긴다)에서도 쿼리를 뺀다.
+  const stripQuery = (url) => { try { const u = new URL(url); return u.origin + u.pathname; } catch { return ''; } };
+  const PAGE_LOCATION_CLEAN = stripQuery(location.href);
+  const PAGE_REFERRER_CLEAN = stripQuery(document.referrer);
+  window.dataLayer.push({ page_location_clean: PAGE_LOCATION_CLEAN }); // GTM 쪽 태그에서도 쓸 수 있게
+  gtag('set', { page_location: PAGE_LOCATION_CLEAN, page_referrer: PAGE_REFERRER_CLEAN });
+  gtag('config', 'G-0J47KY7ZRC', { page_location: PAGE_LOCATION_CLEAN, page_referrer: PAGE_REFERRER_CLEAN });
 </script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
