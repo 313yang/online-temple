@@ -2,6 +2,19 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8" />
+<script>
+  // 방 이름(?room=)은 같은 방 사람끼리만 만나는 열쇠라서 분석 도구로 보내지 않는다.
+  // GTM의 GA4 태그에서 page_location 을 이 값으로 덮어쓰도록 설정해 둔다.
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ page_location_clean: location.origin + location.pathname });
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K6KH5LJ8');</script>
+<!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>번뇌 소멸 법당</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,6 +26,10 @@
 <link rel="stylesheet" href="visitors.css" />
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6KH5LJ8"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <div id="gate">
   <div>
