@@ -1,0 +1,77 @@
+/* ---------- 번뇌 태우기 ---------- */
+.paper {
+  position: fixed; z-index: 15; width: 130px; pointer-events: none;
+  transform: translate(-50%, -100%) rotate(var(--tilt));
+  animation: drop 0.6s ease-out;
+}
+.paper-text {
+  padding: 12px 10px; border-radius: 2px; text-align: center; font-size: 13px; line-height: 1.5; word-break: keep-all;
+  background: #efe2c2; color: #3a2414; box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+.burn-edge {
+  position: absolute; left: -2px; right: -2px; bottom: 0; height: 6px; opacity: 0; border-radius: 3px;
+  background: linear-gradient(90deg, #ff6a1a, #ffd27a, #ff8a2a, #ffd27a, #ff6a1a);
+  box-shadow: 0 0 12px 4px rgba(255,120,40,0.75);
+}
+.paper.burning .paper-text { animation: burn-away var(--burn) linear forwards, char var(--burn) linear forwards; }
+.paper.burning .burn-edge { opacity: 1; animation: burn-edge var(--burn) linear forwards; }
+@keyframes drop { from { opacity: 0; transform: translate(-50%, calc(-100% - 60px)) rotate(var(--tilt)); } }
+@keyframes burn-away { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 100% 0); } }
+@keyframes char { to { filter: sepia(1) brightness(0.55); } }
+@keyframes burn-edge { from { bottom: -3px; } 95% { opacity: 1; } to { bottom: calc(100% - 3px); opacity: 0; } }
+
+.ash {
+  position: fixed; z-index: 14; width: 3px; height: 3px; border-radius: 50%; pointer-events: none;
+  background: #9a9090; animation: ash 1.8s ease-out forwards;
+}
+.ash:nth-child(3n) { background: #ff9a4a; }
+@keyframes ash { to { opacity: 0; transform: translate(var(--dx), -90px); } }
+
+/* ---------- 법당 고양이 ---------- */
+#cat { position: fixed; left: 0; z-index: 12; width: 84px; height: 60px; cursor: pointer; }
+#cat svg { width: 100%; height: 100%; overflow: visible; }
+#cat.flip svg { transform: scaleX(-1); }
+#cat .legs rect { fill: #c97a38; }
+/* 고양이 털색과 섞이지 않게 진한 자단 나무 구슬 */
+#cat .beads circle { fill: url(#beadG); }
+#cat .tassel { transform-origin: 63px 45px; animation: wag 0.75s ease-in-out infinite alternate; }
+#cat .legs.front { animation: step 0.75s ease-in-out infinite alternate; }
+#cat .legs.back { animation: step 0.75s ease-in-out infinite alternate-reverse; }
+#cat .tail { transform-origin: 16px 36px; animation: wag 1.6s ease-in-out infinite; }
+#cat svg { animation: bob 0.75s ease-in-out infinite alternate; }
+#cat.sitting .legs, #cat.sitting svg { animation-play-state: paused; }
+#cat.sitting .tail { animation-duration: 0.6s; }
+@keyframes step { from { transform: translateX(-2px); } to { transform: translateX(2px); } }
+@keyframes wag { 50% { transform: rotate(14deg); } }
+@keyframes bob { to { translate: 0 -1.5px; } }
+
+/* ---------- 오늘의 점괘 ---------- */
+.fortune { text-align: center; }
+.fortune h3 { margin: 18px 0 8px; font-size: 14px; color: var(--gold-soft); }
+.tube {
+  position: relative; width: 56px; height: 86px; margin: 22px auto 18px; border-radius: 8px 8px 12px 12px;
+  background: linear-gradient(90deg, #6b3a1f, #a8683a, #6b3a1f); box-shadow: inset 0 -6px 0 rgba(0,0,0,0.25);
+}
+.tube i {
+  position: absolute; bottom: 60px; width: 4px; height: 40px; border-radius: 2px; background: #e8d3a8;
+}
+.tube i:nth-child(1) { left: 10px; height: 34px; }
+.tube i:nth-child(2) { left: 18px; height: 42px; }
+.tube i:nth-child(3) { left: 26px; height: 38px; }
+.tube i:nth-child(4) { left: 34px; height: 44px; }
+.tube i:nth-child(5) { left: 42px; height: 36px; }
+.tube.shaking { animation: shake 0.18s ease-in-out infinite alternate; }
+@keyframes shake { from { transform: rotate(-12deg); } to { transform: rotate(12deg); } }
+#fortune-shake { padding: 10px 22px; border-radius: 10px; border: 1px solid var(--gold); background: var(--gold); color: #2a1a0c; font-weight: 700; }
+#fortune-shake:disabled { opacity: 0.6; }
+
+.grade { font-size: 52px; font-weight: 700; margin: 12px 0 4px; letter-spacing: 0.1em; animation: reveal 0.6s ease-out; }
+#fortune-line { font-size: 15px; color: var(--ink); }
+[data-grade="대길"] { color: #ffd65a; text-shadow: 0 0 18px rgba(255,214,90,0.6); }
+[data-grade="길"] { color: #7bd389; }
+[data-grade="소길"] { color: #7ab8ff; }
+[data-grade="흉"] { color: #ff6b5a; }
+@keyframes reveal { from { opacity: 0; transform: scale(0.6); } }
+
+#fortune-room { list-style: none; padding: 0; margin: 0 0 6px; font-size: 14px; color: var(--ink-dim); }
+#fortune-room li { padding: 3px 0; }

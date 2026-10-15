@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>번뇌 소멸 법당</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="rituals.css" />
+</head>
+<body>
+
+<div id="gate">
+  <div>
+    <h1>번뇌 소멸 법당</h1>
+    <p>잠시 일을 내려놓고<br />목탁 한 번, 향 한 자루, 연등 하나.</p>
+    <!-- JS가 뜨기 전에 눌러도 페이지가 이동하지 않게 -->
+    <form id="gate-form" autocomplete="off" onsubmit="return false">
+      <label class="field">법명
+        <input id="gate-name" maxlength="10" placeholder="익명의 불자" />
+      </label>
+      <label class="field">방 이름
+        <input id="gate-room" maxlength="20" placeholder="비우면 공개 법당" />
+      </label>
+      <p class="hint">같은 방 이름을 입력한 사람끼리만 서로의 연등이 보여요.</p>
+      <button type="button" class="chip" id="gate-mute">🔔 소리 켜고 입장</button>
+      <button type="submit" class="btn-gate" id="enter">🙏 법당에 들어가기</button>
+    </form>
+  </div>
+</div>
+
+<div id="sky"></div>
+<button id="btn-mute" class="icon-btn">🔔</button>
+
+<main id="hall">
+  <section id="altar">
+    <svg id="buddha" viewBox="0 0 200 220" aria-hidden="true">
+      <defs>
+        <radialGradient id="haloG"><stop offset="0" stop-color="#ffe9a8" stop-opacity="0.55"/><stop offset="1" stop-color="#e8b85a" stop-opacity="0"/></radialGradient>
+        <linearGradient id="goldG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6d996"/><stop offset="1" stop-color="#a87a2c"/></linearGradient>
+        <linearGradient id="lotusG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e79aa0"/><stop offset="1" stop-color="#8e3d4a"/></linearGradient>
+      </defs>
+      <circle class="halo" cx="100" cy="72" r="70" fill="url(#haloG)"/>
+      <circle cx="100" cy="72" r="44" fill="none" stroke="#e8b85a" stroke-opacity="0.35"/>
+      <!-- 머리 -->
+      <circle cx="100" cy="34" r="9" fill="url(#goldG)"/>
+      <ellipse cx="100" cy="62" rx="24" ry="28" fill="url(#goldG)"/>
+      <ellipse cx="74" cy="66" rx="4" ry="12" fill="url(#goldG)"/>
+      <ellipse cx="126" cy="66" rx="4" ry="12" fill="url(#goldG)"/>
+      <path d="M89 64 q5 3 9 0 M102 64 q5 3 9 0" stroke="#6e4f1e" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      <path d="M96 78 q4 3 8 0" stroke="#6e4f1e" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <!-- 몸 -->
+      <path d="M100 90 C70 92 58 110 54 140 C50 165 56 178 100 180 C144 178 150 165 146 140 C142 110 130 92 100 90 Z" fill="url(#goldG)"/>
+      <path d="M100 92 C88 110 84 140 86 176" stroke="#8a6224" stroke-opacity="0.6" stroke-width="2" fill="none"/>
+      <!-- 손 (선정인) -->
+      <ellipse cx="100" cy="160" rx="22" ry="9" fill="#f0cf86" stroke="#a87a2c" stroke-width="1"/>
+      <!-- 연화대 -->
+      <g fill="url(#lotusG)">
+        <path d="M40 186 q20 -22 40 0 z"/><path d="M80 186 q20 -26 40 0 z"/><path d="M120 186 q20 -22 40 0 z"/>
+        <path d="M24 196 q22 -16 44 0 z"/><path d="M132 196 q22 -16 44 0 z"/>
+      </g>
+      <rect x="28" y="194" width="144" height="12" rx="6" fill="#6e4f1e"/>
+    </svg>
+
+    <div id="incense-zone">
+      <canvas id="smoke" width="160" height="220"></canvas>
+      <div id="sticks"></div>
+      <div id="burner"></div>
+    </div>
+  </section>
+
+  <div id="controls">
+    <div class="side-col">
+      <button class="side-btn" id="btn-incense">🕯️ 향 피우기<small id="incense-sub">3자루까지</small></button>
+      <button class="side-btn" id="btn-burn">🔥 번뇌 태우기<small>재가 되어 흩어지게</small></button>
+    </div>
+    <div id="moktak-wrap">
+      <button id="moktak" aria-label="목탁 치기">
+        <svg viewBox="0 0 140 120">
+          <defs>
+            <radialGradient id="woodG" cx="0.4" cy="0.35"><stop offset="0" stop-color="#c47a3e"/><stop offset="1" stop-color="#5a2e14"/></radialGradient>
+          </defs>
+          <ellipse cx="62" cy="70" rx="52" ry="42" fill="url(#woodG)"/>
+          <path d="M22 76 q40 18 80 0" stroke="#2a140a" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <circle cx="40" cy="60" r="4" fill="#2a140a"/>
+          <path d="M100 40 q14 -8 22 -2" stroke="#5a2e14" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <g id="stick-mallet">
+            <rect x="96" y="2" width="6" height="56" rx="3" fill="#d9b07a" transform="rotate(35 99 30)"/>
+            <ellipse cx="86" cy="18" rx="10" ry="8" fill="#b9864f" transform="rotate(35 86 18)"/>
+          </g>
+        </svg>
+      </button>
+    </div>
+    <div class="side-col">
+      <button class="side-btn" id="btn-wish">🏮 소원연등<small id="lantern-sub">5분간 하늘에</small></button>
+      <button class="side-btn" id="btn-fortune">🎋 오늘의 점괘<small id="fortune-sub">하루 한 번</small></button>
+    </div>
+  </div>
+
+  <div id="stats">
+    <div id="presence-row">
+      <span id="presence">법당에 연결 중…</span>
+      <button class="chip" id="btn-invite">🔗 초대 링크</button>
+    </div>
+    오늘 소멸한 번뇌 <b id="today">0</b> · 누적 <span id="total">0</span>
+    <div id="auto-row">
+      자동 목탁
+      <button class="chip on" data-bpm="0">끔</button>
+      <button class="chip" data-bpm="40">느리게</button>
+      <button class="chip" data-bpm="80">보통</button>
+      <button class="chip" data-bpm="140">집중</button>
+    </div>
+  </div>
+</main>
+
+<div id="wish-modal" class="modal">
+  <div class="sheet">
+    <h2>소원연등 달기</h2>
+    <p>연등은 5분 동안 하늘에 머물고, 지금 같은 방에 있는 사람들에게도 보여요. 다른 사람 연등을 누르면 합장할 수 있어요.</p>
+    <textarea id="wish-text" maxlength="60" placeholder="예) 이번 배포 무사히 끝나게 해주세요"></textarea>
+    <div class="colors" id="colors"></div>
+    <div class="sheet-actions">
+      <button data-close>닫기</button>
+      <button class="primary" id="wish-ok">연등 띄우기</button>
+    </div>
+  </div>
+</div>
+
+<div id="burn-modal" class="modal">
+  <div class="sheet">
+    <h2>번뇌 태우기</h2>
+    <p>태우고 싶은 번뇌를 적으면 향로 위에서 재가 됩니다. 아무 데도 저장되지 않고, 다른 사람에게도 보이지 않아요.</p>
+    <textarea id="burn-text" maxlength="40" placeholder="예) 부장님의 '잠깐 얘기 좀'"></textarea>
+    <div class="sheet-actions">
+      <button data-close>닫기</button>
+      <button class="primary" id="burn-ok">불 붙이기</button>
+    </div>
+  </div>
+</div>
+
+<div id="fortune-modal" class="modal">
+  <div class="sheet fortune">
+    <h2>오늘의 점괘</h2>
+    <div id="fortune-draw">
+      <p>마음을 가다듬고 점통을 흔들어 보세요. 하루에 한 번만 뽑을 수 있어요.</p>
+      <div id="fortune-tube" class="tube" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <button class="primary" id="fortune-shake">🎋 점통 흔들기</button>
+    </div>
+    <div id="fortune-result" hidden>
+      <div id="fortune-grade" class="grade"></div>
+      <p id="fortune-line"></p>
+    </div>
+    <div id="fortune-room-wrap" hidden>
+      <h3>오늘 이 방의 점괘</h3>
+      <ul id="fortune-room"></ul>
+    </div>
+    <div class="sheet-actions"><button data-close>닫기</button></div>
+  </div>
+</div>
+
+<div id="cat" hidden aria-label="법당 고양이">
+  <svg viewBox="0 0 84 60">
+    <defs>
+      <radialGradient id="beadG" cx="0.35" cy="0.3" r="0.75">
+        <stop offset="0" stop-color="#d9a066"/><stop offset="0.45" stop-color="#6a2c12"/><stop offset="1" stop-color="#2a0f06"/>
+      </radialGradient>
+    </defs>
+    <path class="tail" d="M16 36 C4 30 4 14 12 8" stroke="#c97a38" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <g class="legs back"><rect x="20" y="42" width="6" height="15" rx="3"/><rect x="29" y="42" width="6" height="15" rx="3"/></g>
+    <g class="legs front">
+      <rect x="45" y="42" width="6" height="15" rx="3"/><rect x="54" y="42" width="6" height="15" rx="3"/>
+    </g>
+    <ellipse cx="38" cy="38" rx="25" ry="12" fill="#d98c45"/>
+    <path d="M28 28 q2 8 0 18 M38 27 q2 8 0 20 M48 28 q2 8 0 18" stroke="#a85f2a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <polygon points="56,22 57,7 65,18" fill="#d98c45"/>
+    <polygon points="66,18 73,7 74,23" fill="#d98c45"/>
+    <circle cx="65" cy="28" r="12" fill="#d98c45"/>
+    <ellipse cx="66" cy="34" rx="7" ry="4" fill="#f3d2a8"/>
+    <path class="eye" d="M66 26 q2 -2 4 0" stroke="#2a1a0c" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <circle cx="73" cy="31" r="1.4" fill="#e7808a"/>
+    <path d="M72 34 l9 -1 M72 36 l9 1" stroke="#f3e9d6" stroke-width="0.8" opacity="0.7"/>
+    <!-- 목에 건 염주 -->
+    <g class="beads">
+      <circle cx="52.0" cy="26.0" r="1.9"/>
+      <circle cx="52.9" cy="29.9" r="1.9"/>
+      <circle cx="53.9" cy="33.3" r="1.9"/>
+      <circle cx="55.1" cy="36.1" r="1.9"/>
+      <circle cx="56.3" cy="38.4" r="1.9"/>
+      <circle cx="57.7" cy="40.2" r="1.9"/>
+      <circle cx="59.2" cy="41.5" r="1.9"/>
+      <circle cx="60.9" cy="42.2" r="1.9"/>
+      <circle cx="64.6" cy="42.1" r="1.9"/>
+      <circle cx="66.6" cy="41.3" r="1.9"/>
+      <circle cx="68.7" cy="39.9" r="1.9"/>
+      <circle cx="71.0" cy="38.0" r="1.9"/>
+      <circle cx="62.7" cy="42.4" r="2.9"/>
+      <path class="tassel" d="M61.7 44.9 l-1 5 M62.7 45.2 l0.3 5.5 M63.7 44.9 l1.5 4.8" stroke="#d8323f" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+  </svg>
+</div>
+
+<div id="toast"></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
