@@ -331,6 +331,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="presence-row">
       <span id="presence">법당에 연결 중…</span>
       <button class="chip" id="btn-invite">🔗 초대 링크</button>
+      <button class="chip" id="btn-share-bonnoe">📤 번뇌 인증</button>
     </div>
     오늘 소멸한 번뇌 <b id="today">0</b> · 누적 <span id="total">0</span>
     <div id="auto-row">
@@ -379,6 +380,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div id="fortune-result" hidden>
       <div id="fortune-grade" class="grade"></div>
       <p id="fortune-line"></p>
+      <button class="chip share-btn" id="fortune-share">📤 점괘 카드 공유하기</button>
     </div>
     <div id="fortune-room-wrap" hidden>
       <h3>오늘 이 방의 점괘</h3>
@@ -449,6 +451,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <path d="M56 26 Q63 31 71 32 L64 44 Z" fill="#b5651d"/>
     <path d="M56 26 Q63 31 71 32" stroke="#8a4a14" stroke-width="2" fill="none" stroke-linecap="round"/>
   </svg>
+</div>
+
+<div id="gift-modal" class="modal">
+  <div class="sheet gift">
+    <div class="gift-beads" aria-hidden="true">📿</div>
+    <h2 id="gift-title">고양이가 어디서 염주를 물어왔다!</h2>
+    <p>법당 앞에 반질반질한 염주 하나를 툭 내려놓고 갔어요. 어디서 났는지 따라가 볼까요?</p>
+    <div class="sheet-actions">
+      <button data-close>그냥 둘게요</button>
+      <a class="primary" id="gift-link" target="_blank" rel="noopener">📿 염주 따라가 보기</a>
+    </div>
+  </div>
 </div>
 
 <div id="toast"></div>

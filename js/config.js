@@ -23,6 +23,12 @@ export const MAX_ROOM_LEN = 20;
 export const DEFAULT_NAME = '익명의 불자';
 export const ROOM_PARAM = 'room';
 
+export const SITE_URL = 'https://online-temple.vercel.app/';
+
+// 이스터에그: 고양이·강아지가 물어온 염주가 이어지는 곳 (유입 경로를 알 수 있게 utm 을 붙인다)
+export const YEOMJU_URL = 'https://yeomju.cafe24.com/';
+export const YEOMJU_HASH = '#brand-story';
+
 // 법당 라디오: BBS 불교방송 「독경_반야심경 (영인스님)」
 export const YT_VIDEO_ID = 'bTizqvC5X9o';
 export const YT_ORIGIN = 'https://www.youtube-nocookie.com'; // 쿠키를 덜 남기는 유튜브 공식 임베드 주소
