@@ -1,0 +1,16 @@
+{
+  "name": "번뇌 소멸 법당",
+  "short_name": "번뇌 법당",
+  "description": "일하다 지칠 때 잠깐 들르는 온라인 법당. 목탁·향·번뇌 태우기·소원연등.",
+  "lang": "ko",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0a14",
+  "theme_color": "#1d1210",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

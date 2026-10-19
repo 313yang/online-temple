@@ -1,0 +1,22 @@
+# 번뇌 소멸 법당 - 검색엔진과 AI 검색(GEO) 모두 환영합니다
+User-agent: *
+Allow: /
+
+# AI 검색·답변 엔진에도 소개되도록 주요 AI 크롤러를 막지 않는다
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+Allow: /
+
+# 네이버(Yeti)·다음(Daum)
+User-agent: Yeti
+User-agent: Daum
+Allow: /
+
+Sitemap: https://online-temple.vercel.app/sitemap.xml

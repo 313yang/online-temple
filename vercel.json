@@ -1,0 +1,12 @@
+{
+  "headers": [
+    {
+      "source": "/(robots.txt|llms.txt)",
+      "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }]
+    },
+    {
+      "source": "/manifest.webmanifest",
+      "headers": [{ "key": "Content-Type", "value": "application/manifest+json; charset=utf-8" }]
+    }
+  ]
+}
